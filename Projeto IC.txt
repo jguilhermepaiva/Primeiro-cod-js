@@ -1,0 +1,117 @@
+/**
+ * This file should be placed at the node_modules sub-directory of the directory where you're
+ * executing it.
+ *
+ * Written by Fernando Castor in November/2017.
+ */
+ readFormula("hole1.cnf")
+exports.solve = function(fileName) {
+  let formula = propsat.readFormula(fileName)
+  let result = doSolve(formula.clauses, formula.variables)
+  return result // two fields: isSat and satisfyingAssignment
+}
+ 
+// Receives the current assignment and produces the next one
+function nextAssignment(currentAssignment) {
+  // implement here the code to produce the next assignment based on currentAssignment.
+var temparray=currentAssignment.join('')
+var b2=parseInt(temparray,2)
+b2++
+var b2=parseInt(b2,2)
+b2=b2.toString(2)
+b2=b2.split('')
+for (var f=0;b2.length>f;f++){
+  b2[f] = parseInt(b2[f]);
+}
+for(var jk=0;b2.length>jk;jk++){
+  var b2k = b2.length - 1 - jk
+  var temp2k = temparray.length - 1 - jk
+  array[temp2k]=b2[b2k]
+}
+var newAssignment = temparray
+ 
+  return newAssignment
+}
+ 
+ 
+function doSolve(clauses, assignment) {
+  let isSat = false
+    var yk=0
+     while((!isSat) &&  yk < Math.pow(2, array2.length)- 1){         
+           for(int t=0;array.length>t;t++){
+             for(int d=0;array.length>d;d++){              
+                array[t][d]=assignment[t-1]
+                       
+                }
+             }
+           
+    // does this assignment satisfy the formula? If so, make isSat true.
+ 
+    // if not, get the next assignment and try again.
+    assignment = nextAssignment(assignment)
+    }
+  let result = {'isSat': isSat, satisfyingAssignment: null}
+  if (isSat) {
+    result.satisfyingAssignment = assignment
+  }
+  return result
+}
+ 
+function readFormula(fileName) {
+  // To read the file, it is possible to use the 'fs' module.
+  // Use function readFileSync and not readFile.
+  var fs = require('fs')
+  // First read the lines of text of the file and only afterward use the auxiliary functions.
+  let text = fs.readFileSync(fileName,"utf8").split('\n') // = ...  //  an array containing lines of text extracted from the file.
+  let clauses = readClauses(text)
+  let variables = readVariables(clauses)
+ 
+  // In the following line, text is passed as an argument so that the function
+  // is able to extract the problem specification.
+  let specOk = checkProblemSpecification(text, clauses, variables)
+ 
+  let result = { 'clauses': [], 'variables': [] }
+  if (specOk) {
+    result.clauses = clauses
+    result.variables = variables
+  }
+  return result
+} function readClauses (text){
+  var array=new Array()
+  for(var i=0;text.length>i;i++){
+      if(text[i].charAt(0) != 'c' && text[i].charAt(0) !='p'){
+         array.push(text[i].split(" "))
+      }
+  }
+  console.log(array)
+  return array
+} function readVariables (clauses){
+  var quantidade=1
+  var array2=new Array()
+  for(var j=0;clauses.length>j;j++){
+    for(var x=0;clauses[j].length>x;x++){
+      if(clauses[j][x]==Math.abs(quantidade)){
+        quantidade++
+        j=0
+        x=0
+        array2.push(0)
+      }
+}
+    }
+    console.log(array2)
+    console.log(array2.length)
+    return array2
+  } function checkProblemSpecification(text, clauses,variables){
+    for (int y=0;text.length>y;y++){
+      if(text[y].charAt(0)=='p'){
+      text[y].split(" ")
+       if(text[y][4]==array.length && text[y][3]=array2.length){
+        return true
+       }else
+       return false
+    }
+      }
+   
+ 
+ 
+  }
