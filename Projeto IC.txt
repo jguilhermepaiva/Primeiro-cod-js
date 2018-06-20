@@ -29,10 +29,11 @@ function doSolve(clauses, assignment) {
     let k11=0
      while((!isSat) &&  k11 < Math.pow(2, assignment.length)-1){         
        var VerVerdade = verdade(clauses, assignment)
-       if (VerVerdade == true){
+       if (VerVerdade){
         isSat = true
        }else {//SE NAO FOR TRUE TESTA O PROXIMO
            assignment = nextAssignment(assignment)
+
        }
        k11++
   }
@@ -102,10 +103,9 @@ function verdade (clauses, variables){
 
 
     var verd = 0
-    
 
     while(k1 < clauses.length ){
-     for(var ki = 0; ki < (clauses[k1].length - 1); ki++){
+     for(var ki = 0; ki < (clauses[k1].length); ki++){
        if( verd == 0){
         let k0 = parseInt(clauses[k1][ki], 10)
        let lugar = Math.abs(k0) - 1
@@ -131,3 +131,4 @@ function verdade (clauses, variables){
     }
     return true
 }
+
