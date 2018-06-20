@@ -1,19 +1,12 @@
-/**
- * This file should be placed at the node_modules sub-directory of the directory where you're
- * executing it.
- *
- * Written by Fernando Castor in November/2017.
- */
- readFormula("hole1.cnf")
+readFormula("hole1.cnf")
 exports.solve = function(fileName) {
   let formula = propsat.readFormula(fileName)
   let result = doSolve(formula.clauses, formula.variables)
-  return result // two fields: isSat and satisfyingAssignment
+  return result 
 }
  
-// Receives the current assignment and produces the next one
-function nextAssignment(currentAssignment) {
-  // implement here the code to produce the next assignment based on currentAssignment.
+// Recebe o assignment atual e cria um novo.
+function nextAssignment(currentAssignment) {0
 var temparray=currentAssignment.join('')
 var b2=parseInt(temparray,2)
 b2++
@@ -36,23 +29,48 @@ var newAssignment = temparray
  
 function doSolve(clauses, assignment) {
   let isSat = false
-    var yk=0
-     while((!isSat) &&  yk < Math.pow(2, array2.length)- 1){         
-           for(int t=0;array.length>t;t++){
-             for(int d=0;array.length>d;d++){              
-                array[t][d]=assignment[t-1]
-                       
-                }
+    var k=0
+     while((!isSat) &&  k < Math.pow(2, array2.length)-1){         
+           var copiaclauses=new Array()
+           for(var t=0;array.length>t;t++){
+             copiaclauses[t]=new Array()
+             
+             for(var d=0;array[t].length>d;d++){   
+                for(var a=0;array2.length>a;a++)           
+                if (Math.abs(array[i][j]) == array2[m]) 
+                    if (array[t][d] > 0) { 
+                    copiaclauses[t].push(array2[a])  
+                }   else
+                    copiaclauses[t].push(!array2[a])
              }
-           
+          }
+
     // does this assignment satisfy the formula? If so, make isSat true.
- 
+ var checkSat = true;
     // if not, get the next assignment and try again.
+
+    for(var t = 0; t < copiaclauses.length; t++){
+      var haveTrue = false;
+      for(var d = 0;d < copiaclauses[i].length && !haveTrue; d++){
+        if(copiaclauses[t][d] == 1){
+          copiaclauses[t] = 1
+          haveTrue = true
+        }
+      }
+      if(!haveTrue){
+        copiaclauses[i] = 0
+        checkSat = false;
+      }
+    }
+
+    if(checkSat){
+      isSat = true
+    } else{
     assignment = nextAssignment(assignment)
     }
   let result = {'isSat': isSat, satisfyingAssignment: null}
   if (isSat) {
-    result.satisfyingAssignment = assignment
+    result.satisfyingAssignment = array2
   }
   return result
 }
@@ -65,7 +83,7 @@ function readFormula(fileName) {
   let text = fs.readFileSync(fileName,"utf8").split('\n') // = ...  //  an array containing lines of text extracted from the file.
   let clauses = readClauses(text)
   let variables = readVariables(clauses)
- 
+ console.log(array)
   // In the following line, text is passed as an argument so that the function
   // is able to extract the problem specification.
   let specOk = checkProblemSpecification(text, clauses, variables)
@@ -83,7 +101,7 @@ function readFormula(fileName) {
          array.push(text[i].split(" "))
       }
   }
-  console.log(array)
+  
   return array
 } function readVariables (clauses){
   var quantidade=1
@@ -98,8 +116,7 @@ function readFormula(fileName) {
       }
 }
     }
-    console.log(array2)
-    console.log(array2.length)
+    
     return array2
   } function checkProblemSpecification(text, clauses,variables){
     for (int y=0;text.length>y;y++){
